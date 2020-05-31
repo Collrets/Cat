@@ -24,10 +24,9 @@ def get_content(html):
              documents.append({
         'title': item.find('h3', class_='oli-title').get_text(strip=True),
         'link': HOST + item.find('a').get('href'),
-        #'evaluation': item.find('div', class_='ratings').get_text(strip=True),
         'address' : item.find('i',class_='fa fa-map-signs size-15').find_next('span').get_text(strip=True),
         'phone': item.find('i', class_='fa fa-phone size-15').find_next('span').get_text(strip=True),
-        'bus_stop': item.find('li', class_='oli-row stop layout__container flex-children__center').get_text(strip=True),
+       
         'administration': item.find('li', class_='oli-row attributes layout__container flex-children__center').get_text(strip=True)
         })
     return documents
@@ -45,14 +44,11 @@ def parse():
     html = get_html(URL)
     if html.status_code == 200:
         documents = []
-        #print(pages_count)
-        #documents = get_content(html.text)
+            
         documents.extend(get_content(html.text))
         print(documents)
         save_file(documents, FILE)
-        #print(f'Получено {len(documents)}')
+       
     else:
         print('Error')
-
-#documents = get_content(html.text)
 parse()
